@@ -4,6 +4,11 @@ var EventEmitter = require('events').EventEmitter;
 var log = require('bookrc');
 var debug = require('debug')('localtunnel-server');
 
+function randomIntFromInterval(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
 var Proxy = function(opt, cb) {
     if (!(this instanceof Proxy)) {
         return new Proxy(opt, cb);
@@ -115,7 +120,7 @@ var Proxy = function(opt, cb) {
         }
     });
 
-    client_server.listen(function() {
+    client_server.listen(randomIntFromInterval(31100, 31200), function() {
         var port = client_server.address().port;
         debug('tcp server listening on port: %d', port);
 
